@@ -1,0 +1,34 @@
+{
+  "name": "fixr-backend",
+  "version": "1.0.0",
+  "description": "Backend server made with Node JS and Express for Fixr app",
+  "main": "index.js",
+  "author": "Guillaume Savy",
+  "license": "MIT",
+  "scripts": {
+    "server": "nodemon index.js",
+    "start": "node index.js",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose",
+    "reset": "npx knex migrate:rollback && npx knex migrate:latest"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.0",
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
+    "cross-env": "^6.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "helmet": "^3.21.2",
+    "jwks-rsa": "^1.6.2",
+    "jwt-decode": "^2.2.0",
+    "knex": "^0.20.7",
+    "pg": "^7.17.1",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.2"
+  }
+}
