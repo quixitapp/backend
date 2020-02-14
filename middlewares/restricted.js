@@ -1,22 +1,22 @@
-const jwtDecode = require("jwt-decode")
 const db = require("../ressources/auth-route/register-model")
+const admin = require("firebase-admin")
 
 const restricted = async (req, res, next) => {
-  const auth = req.headers.authorization
-  const userToken = auth.replace(/Bearer /g, "")
-
-  if (!userToken) {
-    res.status(401).json({ message: "You must be logged in to see that." })
-  } else {
-    const token = await jwtDecode(userToken)
-    const user = await db.getUserByName(token.nickname)
-    if (!user) {
-      res.status(404).json({ errorMessage: `User doesn't exist!` })
-    } else {
-      req.user = user
-      req.decodedJwt = token
-      next()
+  try {
+    const token = req.headers.authorization
+    if (!token) res.status(401).json({ message: `Invalid token` })
+    else {
+      const data = await admin.auth().verifyIdToken(token)
+      const user = await db.getUserById(data.id)
+      if (!user) res.status(404).json({ errorMessage: `User doesn't exist!` })
+      else {
+        req.user = user
+        req.idToken = token
+        next()
+      }
     }
+  } catch ({ message }) {
+    res.status(500).json({ errorMessage: `Unable to log user.` })
   }
 }
 

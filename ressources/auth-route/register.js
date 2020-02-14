@@ -1,38 +1,20 @@
 const router = require("express").Router()
-const jwtDecode = require("jwt-decode")
 const db = require("./register-model")
-const jwChecks = require("../../middlewares/jwtChecks")
-const restricted = require("../../middlewares/restricted")
+const admin = require("firebase-admin")
+// const restricted = require("../../middlewares/restricted")
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+  databaseURL: "https://quixit-7d5f2.firebaseio.com"
+})
 
-router.post("/", async (req, res) => {
-  try {
-    const token = req.headers.authorization
-    if (req.headers && req.headers.authorization && token) {
-      if (token) {
-        const decode = jwtDecode(token)
-        // const userToken = token.replace(/Bearer/g, "")
-
-        const foundUser = await db.getUserByName(decode.nickname)
-        if (foundUser) {
-          req.status(200).json(foundUser)
-        } else {
-          console.log("nickname= ", decode.nickname)
-          const newUser = {
-            nickname: decode.nickname,
-            email: decode.email
-          }
-          const data = await db.addUser(newUser)
-          const foundUser = await db.getUserById(data.id)
-          res.status(200).json(foundUser)
-        }
-      }
-    } else {
-      res.status(400).json({ errorMessage: "Invalid Credentials!" })
-    }
-  } catch ({ message }) {
-    // console.log(message)
-    res.send(message).json({ message: "Unable to sign up" })
-  }
+router.post("/", (req, res) => {
+  admin
+    .auth()
+    .verifyIdToken(req.headers.authorization)
+    .then(token => {
+      console.log(token)
+    })
+    .catch(({ message }) => console.log(message))
 })
 
 module.exports = router
