@@ -11,22 +11,16 @@ router.post("/", async (req, res) => {
       res.status(400).json({ errorMessage: "Invalid Token!" })
     } else {
       const foundUser = await db.getUserById(validToken.uid)
-      if (!foundUser && validToken) {
-        if (req.body && req.body.uid) {
-          if (validToken.uid === req.body.uid) {
-            const newUser = await db.addUser(req.body)
-            res.status(201).json(newUser)
-          } else {
-            res
-              .status(403)
-              .json({ errorMessage: "Forbidden access invalid token!" })
-          }
-        }
+      if (!foundUser) {
+        res.status(404).json({
+          errorMessage: `User with ID ${validToken.uid} doesn't exit!`
+        })
       } else {
         res.status(200).json(foundUser)
       }
     }
   } catch ({ message }) {
+    console.log(message)
     res.status(500).json({ errorMessage: message })
   }
 })

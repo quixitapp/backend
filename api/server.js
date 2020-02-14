@@ -6,6 +6,7 @@ const cors = require("cors")
 const server = express()
 
 const registerRouter = require("../ressources/auth-route/register")
+const loginRouter = require("../ressources/auth-route/login")
 const usersRouter = require("../ressources/users-route/users")
 
 server.use(express.json())
@@ -14,6 +15,7 @@ server.use(morgan("dev"))
 server.use(cors())
 
 server.use("/api/register", registerRouter)
+server.use("/api/login", loginRouter)
 server.use("/api/users", usersRouter)
 
 server.get("/", (req, res) => {

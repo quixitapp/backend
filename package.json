@@ -9,7 +9,7 @@
     "server": "nodemon index.js",
     "start": "node index.js",
     "test": "cross-env DB_ENV=testing jest --watch --verbose",
-    "reset": "npx knex migrate:rollback && npx knex migrate:latest"
+    "reset": "npx knex migrate:rollback && npx knex migrate:latest && clear && yarn server"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.0",
