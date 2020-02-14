@@ -1,15 +1,6 @@
 const router = require("express").Router()
-const admin = require("firebase-admin")
+const admin = require("../../config/firebase-admin")
 const db = require("./register-model")
-const configs = require("./register-variables")
-
-const { credential, projectId, databaseURL } = configs
-
-admin.initializeApp({
-  credential: admin.credential.applicationDefault(credential),
-  databaseURL,
-  projectId
-})
 
 router.post("/", async (req, res) => {
   try {
