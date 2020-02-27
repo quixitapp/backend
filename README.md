@@ -36,8 +36,8 @@ Quixit is a Restful API build with [Node.js](https://nodejs.org/en/about/) and [
 
 | Method | Endpoint | Access Control | Description |
 | ------ | -------- | -------------- | ----------- |
-| POST    | `/api/register` | all users      | Creates a new user and logs them in. |
-| POST   | `/api/login` | all users      | Logs a returning user in |
+| POST    | `/api/register` | all users      | Creates a new User and logs them in. |
+| POST   | `/api/login` | all users      | Logs a returning User in |
 
 #### Users 
 
@@ -65,3 +65,110 @@ Quixit is a Restful API build with [Node.js](https://nodejs.org/en/about/) and [
 | GET   | `/api/invoices/:id` | all users      | Returns the Invoice with specified id. |
 | GET    | `/api/invoices/projects/:id` | anyone  |Returns all Invoices tied to the specified project id. |
 | POST    | `/api/invoices` | all users      | Creates a new Invoice. |
+
+## Data Model
+
+#### Users
+
+```
+{
+  uid: UUID
+  stripe_id: STRING
+  payout_id: STRING
+  firstName: STRING
+  lastName: STRING
+  avatar: STRING
+  nickname: STRING
+  email: STRING
+  isContractor: BOOLEAN
+  address: STRING
+  phone: STRING
+  category: STRING
+  isBoarded: BOOLEAN
+  balance: INTEGER
+}
+```
+#### Services
+
+```
+service_name: String
+```
+
+#### Projects
+
+```
+{
+  id: UUID
+  homeowner_id: INTEGER
+  project_title: STRING
+  description: STRING
+  material_included: BOOLEAN
+  is_active: BOOLEAN
+  budget: INTEGER
+  category: STRING
+  created_at: TIMESTAMP
+}
+```
+
+#### Bids
+
+```
+{
+  id: UUID
+  project_id: INTEGER
+  price: INTEGER
+  duration: INTEGER
+  material_included: BOOLEAN
+  is_accepted: BOOLEAN
+  budget: INTEGER
+  created_at: TIMESTAMP
+}
+```
+
+#### Project Images
+
+```
+{
+  id: UUID
+  project_id: INTEGER
+  image: String
+  created_at: TIMESTAMP
+}
+```
+#### Project Agreement
+
+```
+{
+  project_id: INTEGER
+  contractor_id: INTEGER
+  created_at: TIMESTAMP
+}
+```
+
+#### Feedback
+
+```
+{
+  id: UUID
+  contractor_id: INTEGER
+  reviewer_name: STRING
+  feedback_title: STRING
+  description: STRING
+  rating: INTEGER
+  recommend: BOOLEAN
+  created_at: TIMESTAMP
+}
+```
+
+#### Invoices
+
+```
+{
+  id: UUID
+  contractor_id: INTEGER
+  amount: INTEGER
+  feedback_title: STRING
+  paid_at: TIMESTAMP
+  created_at: TIMESTAMP
+}
+```
