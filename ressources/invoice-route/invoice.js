@@ -45,6 +45,23 @@ router.get("/:id", restricted ,async (req, res) => {
     }
   })
 
+// <------------------------------------------------------------>
+
+// Create a new invoice
+
+  router.post("/", restricted ,async (req, res) => {
+      const newInvoice = req.body
+    try {
+      const invoice = await db.getInvoicesByProjectId(newInvoice)
+      res.status(200).json(invoice)
+    } catch ({ message }) {
+      console.log(message)
+      res.status(500).json(message)
+    }
+  })
+
+
+
 
 
 
