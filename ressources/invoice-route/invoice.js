@@ -30,6 +30,21 @@ router.get("/:id", restricted ,async (req, res) => {
     }
   })
 
+// <------------------------------------------------------------>
+
+// get all invoices tied to a specified project id
+
+  router.get("/project/:id", restricted ,async (req, res) => {
+    const projectId = req.params.id
+    try {
+      const invoices = await db.getInvoicesByProjectId(projectId)
+      res.status(200).json(invoices)
+    } catch ({ message }) {
+      console.log(message)
+      res.status(500).json(message)
+    }
+  })
+
 
 
 
