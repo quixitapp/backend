@@ -30,5 +30,21 @@ router.get("/:id", restricted, async (req, res) => {
     }
   })
 
+//   <------------------------------------------------------------------------>
+
+// post a new project
+
+router.post("/", async (req, res) => {
+    const newProject = req.body
+    try {
+      const project = await db.createProject(newProject)
+      res.status(200).json(project)
+    } catch ({ message }) {
+      console.log(message)
+      res.status(500).json(message)
+    }
+  })
+
+
 
 module.exports = router

@@ -9,15 +9,14 @@ module.exports = {
 
 function getUsers() {
   return db("users").select(
-    "id",
-    "first_name",
-    "last_name",
+    "uid",
+    "firstName",
+    "lastName",
     "nickname",
     "email",
     "address",
     "phone",
-    "skills",
-    "experience"
+    "category",
   )
 }
 
