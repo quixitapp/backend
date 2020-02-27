@@ -28,3 +28,40 @@ Quixit is a Restful API build with [Node.js](https://nodejs.org/en/about/) and [
 - [SQLite3](https://www.npmjs.com/package/sqlite3): Free and open-source relational database management system used in our development environment 
 - [Jest](https://www.npmjs.com/package/jest): Sets global state while testing 
 - [Morgan](https://www.npmjs.com/package/morgan): HTTP request logger middleware
+
+
+## Endpoints
+
+#### Authorization
+
+| Method | Endpoint | Access Control | Description |
+| ------ | -------- | -------------- | ----------- |
+| POST    | `/api/register` | all users      | Creates a new user and logs them in. |
+| POST   | `/api/login` | all users      | Logs a returning user in |
+
+#### Users 
+
+| Method | Endpoint | Access Control | Description |
+| ------ | -------- | -------------- | ----------- |
+| GET    | `/api/users` | all users      | Returns all users. |
+| GET   | `/api/users/:id` | all users      | Returns the User with specified id. |
+| PUT    | `/api/users/:id` | anyone  | Updates the User with specified id. |
+
+#### Projects
+
+| Method | Endpoint | Access Control | Description |
+| ------ | -------- | -------------- | ----------- |
+| GET    | `/api/projects` | all users      | Returns all Projects. |
+| GET   | `/api/projects/:id` | all users      | Returns the Project with specified id. |
+| PUT    | `/api/projects/:id` | anyone  | Updates the Project with specified id. |
+| POST    | `/api/projects` | all users      | Creates a new Project. |
+| DELETE    | `/api/projects/:id` | all users      | Deletes the project with specified id. |
+
+#### Invoices
+
+| Method | Endpoint | Access Control | Description |
+| ------ | -------- | -------------- | ----------- |
+| GET    | `/api/invoices` | all users      | Returns all Invoices. |
+| GET   | `/api/invoices/:id` | all users      | Returns the Invoice with specified id. |
+| GET    | `/api/invoices/projects/:id` | anyone  |Returns all Invoices tied to the specified project id. |
+| POST    | `/api/invoices` | all users      | Creates a new Invoice. |
