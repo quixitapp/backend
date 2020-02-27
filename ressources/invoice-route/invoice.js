@@ -11,10 +11,24 @@ router.get("/", restricted, async (req, res) => {
     res.status(200).json(invoices)
   } catch ({ message }) {
     console.log(message)
-    res.status(500).json(err.message)
+    res.status(500).json(message)
   }
 })
 
+// <------------------------------------------------------------>
+
+// Get specified invoice by id
+
+router.get("/:id", restricted ,async (req, res) => {
+    const id = req.params.id
+    try {
+      const invoice = await db.getInvoiceById(id)
+      res.status(200).json(invoice)
+    } catch ({ message }) {
+      console.log(message)
+      res.status(500).json(message)
+    }
+  })
 
 
 
