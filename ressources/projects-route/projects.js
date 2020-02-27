@@ -47,7 +47,7 @@ router.post("/", restricted, async  (req, res) => {
 
   //   <------------------------------------------------------------------------>
 
-// post a new project
+// Update a project
 
   router.put("/:id", restricted, async  (req, res) => {
     const editProject = req.body
@@ -60,6 +60,22 @@ router.post("/", restricted, async  (req, res) => {
       res.status(500).json(message)
     }
   })
+
+
+//   <------------------------------------------------------------------------>
+
+// Delete a project
+
+router.delete("/:id", restricted, async  (req, res) => {
+  const id = req.params.id
+  try {
+    const project = await db.updateProject(id)
+    res.status(200).json(project)
+  } catch ({ message }) {
+    console.log(message)
+    res.status(500).json(message)
+  }
+})
 
 
 
