@@ -109,6 +109,26 @@ exports.up = function(knex) {
       t.boolean("recommend").defaultTo(true)
       t.timestamp("created_at").defaultTo(knex.fn.now())
     })
+    .createTable("invoices", t => {
+      t.increments()
+      t.integer("contractor_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE")
+        t.integer("project_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("projects")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE")
+      t.integer("amount", 255).notNullable()
+      t.datetime('paid_at').defaultTo(null);
+      t.timestamp("created_at").defaultTo(knex.fn.now())
+    })
 }
 
 exports.down = function(knex) {
@@ -120,4 +140,5 @@ exports.down = function(knex) {
     .dropTableIfExists("project_images")
     .dropTableIfExists("project_agreement")
     .dropTableIfExists("feedback")
+    .dropTableIfExists("invoices")
 }
