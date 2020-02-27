@@ -45,6 +45,22 @@ router.post("/", restricted, async  (req, res) => {
     }
   })
 
+  //   <------------------------------------------------------------------------>
+
+// post a new project
+
+  router.put("/:id", restricted, async  (req, res) => {
+    const editProject = req.body
+    const id = req.params.id
+    try {
+      const project = await db.updateProject(id,editProject)
+      res.status(200).json(project)
+    } catch ({ message }) {
+      console.log(message)
+      res.status(500).json(message)
+    }
+  })
+
 
 
 module.exports = router
