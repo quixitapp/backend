@@ -34,7 +34,7 @@ router.get("/:id", restricted, async (req, res) => {
 
 // post a new project
 
-router.post("/", async (req, res) => {
+router.post("/", restricted, async  (req, res) => {
     const newProject = req.body
     try {
       const project = await db.createProject(newProject)
