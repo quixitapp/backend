@@ -10,6 +10,7 @@ const loginRouter = require("../ressources/auth-route/login")
 const usersRouter = require("../ressources/users-route/users")
 const projectsRouter = require('../ressources/projects-route/projects')
 const invoicesRouter = require('../ressources/invoice-route/invoice')
+const stripeRouter = require('../ressources/stripe-route/stripe')
 
 server.use(express.json())
 server.use(helmet())
@@ -21,6 +22,7 @@ server.use("/api/login", loginRouter)
 server.use("/api/users", usersRouter)
 server.use("/api/projects", projectsRouter)
 server.use("/api/invoices", invoicesRouter)
+server.use("/api/payment", stripeRouter)
 
 server.get("/", (req, res) => {
   res.status(200).json({ "Welcome to": "Quixit" })
