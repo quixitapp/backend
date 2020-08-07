@@ -9,7 +9,8 @@
     "server": "nodemon index.js",
     "start": "node index.js",
     "test": "cross-env DB_ENV=testing jest --watch --verbose",
-    "reset": "npx knex migrate:rollback && npx knex migrate:latest && clear && yarn server"
+    "reset": "npx knex migrate:rollback && npx knex migrate:latest && clear && yarn server",
+    "reset:prod": "npx heroku run knex migrate:rollback -a quixit-app && npx heroku run knex migrate:latest -a quixit-app && npx heroku run knex seed:run -a quixit-app"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.0",
@@ -21,12 +22,12 @@
     "firebase-admin": "^8.9.2",
     "helmet": "^3.21.2",
     "knex": "^0.20.7",
+    "morgan": "^1.10.0",
     "pg": "^7.17.1",
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
     "jest": "^24.9.0",
-    "morgan": "^1.9.1",
     "nodemon": "^2.0.2"
   }
 }

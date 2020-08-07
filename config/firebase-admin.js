@@ -1,12 +1,12 @@
-const admin = require("firebase-admin")
-const configs = require("./admin-variables")
+const admin = require('firebase-admin');
+const configs = require('./admin-variables');
 
-const { credential, projectId, databaseURL } = configs
+const { credential, projectId, databaseURL } = configs;
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(credential),
   databaseURL,
-  projectId
-})
+  projectId,
+});
 
-module.exports = admin
+module.exports = admin;

@@ -37,12 +37,7 @@ module.exports = {
   testing: {
     client: 'pg',
     useNullAsDefault: true,
-    connection: {
-      host: process.env.TEST_DATABASE_HOST || '',
-      database: process.env.TEST_DATABASE_NAME,
-      user: process.env.TEST_DATABASE_USER || '',
-      password: process.env.TEST_DATABASE_PASSWORD || '',
-    },
+    connection: process.env.HEROKU_POSTGRESQL_YELLOW_URL,
     migrations: {
       directory: './data/migrations',
     },
