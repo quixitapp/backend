@@ -1,7 +1,7 @@
 {
-  "name": "fixr-backend",
+  "name": "quixit-backend",
   "version": "1.0.0",
-  "description": "Backend server made with Node JS and Express for Fixr app",
+  "description": "Backend server made with Node JS and Express for Quixit app",
   "main": "index.js",
   "author": "Guillaume Savy",
   "license": "MIT",

@@ -2,57 +2,56 @@
 
 module.exports = {
   development: {
-    client: "sqlite3",
-    useNullAsDefault: true,
+    client: 'pg',
     connection: {
-      filename: "./data/quixit.db3"
+      host: process.env.DATABASE_HOST || '',
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD || '',
     },
     migrations: {
-      directory: "./data/migrations"
+      directory: './data/migrations',
     },
     seeds: {
-      directory: "./data/seeds"
+      directory: './data/seeds',
     },
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run("PRAGMA foreign_keys = ON", done)
-      }
-    }
+    useNullAsDefault: true,
   },
 
   production: {
-    client: "postgresql",
+    client: 'pg',
     useNullAsDefault: true,
     connection: process.env.DATABASE_URL,
+    pool: {
+      min: 2,
+      max: 10,
+    },
     migrations: {
-      directory: "./data/migrations"
+      directory: './data/migrations',
     },
     seeds: {
-      directory: "./data/seeds"
+      directory: './data/seeds',
     },
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run("PRAGMA foreign_keys = ON", done)
-      }
-    }
   },
 
   testing: {
-    client: "sqlite3",
+    client: 'pg',
     useNullAsDefault: true,
     connection: {
-      filename: "./data/testing.db3"
+      host: process.env.TEST_DATABASE_HOST || '',
+      database: process.env.TEST_DATABASE_NAME,
+      user: process.env.TEST_DATABASE_USER || '',
+      password: process.env.TEST_DATABASE_PASSWORD || '',
     },
     migrations: {
-      directory: "./data/migrations"
+      directory: './data/migrations',
     },
     seeds: {
-      directory: "./data/seeds"
+      directory: './data/seeds',
     },
     pool: {
-      afterCreate: (conn, done) => {
-        conn.run("PRAGMA foreign_keys = ON", done)
-      }
-    }
-  }
-}
+      min: 2,
+      max: 10,
+    },
+  },
+};
